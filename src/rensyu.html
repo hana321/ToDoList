@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello,vue.js</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>ToDo LIST</h2>
+      <form v-on:submit.prevent>
+        <input type="text" v-model="newItem" />
+        <button v-on:click="addItem">add</button>
+      </form>
+
+      <ul>
+        <li v-for="(ToDo,index) in ToDos">
+          <input type="checkbox" v-model="ToDo.isDone" />
+          <!-- 完了済タスクに線を引く -->
+          <span v-bind:class="{done:ToDo.isDone}">{{ ToDo.item }}</span>
+          <button v-on:click="deliteItem(index)">Delete</button>
+        </li>
+      </ul>
+
+      <!-- デバック用 -->
+      <!-- <pre>{{$data}}</pre> -->
+
+      <!-- コンポーネントを出力 -->
+      <!-- <hello-component></hello-component> -->
+    </div>
+
+    <!-- vie.jsを先に読み込む -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
+
+<!-- コンポーネント -->
+
+// コンポーネント // Vue.component('hello-component',{ // template: '
+<p>Hello</p>
+' // }) var app = new Vue({ el: '#app', data:{ newItem:'', ToDos:[] }, methods:{
+addItem:function(event){ // alert(); // 未入力なら追加しない if(this.newItem ==
+'') return; var ToDo={ item: this.newItem, // タスクの完了未完了 isDone:false };
+this.ToDos.push(ToDo); // タスク追加後の文字列クリア this.newItem= ''; }, //
+リストの削除 deliteItem:function(index){ // alert(index);
+this.ToDos.splice(index,1) } } })
